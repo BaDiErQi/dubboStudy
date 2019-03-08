@@ -28,3 +28,7 @@ mvnw
 mvnw.cmd
 bootstudy.iml
 .mvn
+
+spring-consumer/target/
+spring-interface/target/
+spring-provider/target/
