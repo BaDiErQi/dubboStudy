@@ -25,3 +25,17 @@ dubbo框架的学习使用
 * mvn clean package 打包项目，进入target，解压dubbo-monitor-simple-2.0.0-assembly.tar.gz
 * 在解压后的目录dubbo-monitor-simple-2.0.0/assembly.bin/中，通过脚本assembly.bin/运行监控中心
 * 访问UI页面端口8080
+* 在消费方和提供方分别配置monitor，协议方式为registry
+
+## 提供者
+
+* 引入zookeeper客户端包，公共接口api包，dubbo包
+* 在配置文件中配置应用名、注册中心地址
+* 暴露服务的端口和协议、需要暴露的接口和接口对应的实现
+
+## 消费者
+
+* 引入zookeeper客户端包，公共接口api包，dubbo包
+* 在配置文件中配置应用名、注册中心地址
+* 配置引用的接口和其id
+* 调用时，根据接口和id进行注入
