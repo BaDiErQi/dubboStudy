@@ -48,3 +48,46 @@ dubbo框架的学习使用
 * yml文件除暴露服务和引用接口外一样配置
 * 启动类上使用@EableDubbo注解
 * 引用的服务@AutoWire改为@Reference，暴露的服务改为dubbo的@Service，加上@Component注入容器
+
+# 配置
+
+> 如果没有服务提供方，启动消费方会报错，check属性，默认为true。设置为false后启动不会进行检查，调用服务时检查，不存在提供方则报错。
+
+* 可以在消费方引用的标签或者注解上设置check属性
+* 可以统一设置所有消费方，dubbo.consumer.check=false
+* dubbo:registry check=fasle  没有注册中心启动不报错
+
+> timeout属性，消费方引用提供方时，如果很长时间没有返回，可以设置时间，超过时间停止访问
+
+* 在消费方引用标签或者注解上配置
+* 方法配置优先，接口配置次之，全局配置最后。
+* 同级别间，服务消费方配置优先，提供方配置次之
+
+参考：http://dubbo.apache.org/zh-cn/docs/user/configuration/xml.html
+
+> 重试次数，retries，设置3次，不包含第一次，那么一共会调用四次
+
+* 有多个服务提供方，失败后重试次数会分到其他服务上，总次数不变
+* 幂等接口(查询、删除、修改)可以设置retries，非幂等接口(新增)不设置重试次数
+* 设置为0，0代表不重试
+
+> 当一个接口实现，出现不兼容升级时，可以用版本号过渡，版本号不同的服务相互间不引用。
+
+* 服务提供方暴露接口时可以指定版本号，消费方引用接口时指定版本号
+* 版本号匹配的情况下服务才能调用
+
+> 本地存根
+
+* 在消费方创建存根类，实现暴露接口
+* 固定有参构造，通过dubbo拿到远程代理对象
+* 在实现的方法中做自己的实现，再调用代理对象的相应方法
+* 在消费方引用标签配置stub存根属性
+
+一般存根会放在接口模块进行实现
+
+# springboot与dubbo整合的三种方式
+
+1.导入dubbo-starter，在application.properties配置属性，使用@Service暴露服务使用@Reference引用服务，使用@EnableDubbo开启包扫描功能。  
+2.保留dubbo xml配置文件，在启动类中加上@ImportResource(location="classpath:provider.xml")，dubbo的@Service和@Reference就可以不用使用了。   
+3.书写配置类，注册实例ApplicationConfig/RegistryConfig/ProtocolConfig/ServiceConfig等API类，添加@EnableDubbo(scanBasePackages="xxx")。
+
