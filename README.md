@@ -1,6 +1,8 @@
 # dubboStudy
 dubbo框架的学习使用
 
+# spring框架下
+
 ## 下载zookeeper
 
 * 镜像网上下载zk:https://mirrors.tuna.tsinghua.edu.cn/apache/zookeeper/
@@ -39,3 +41,10 @@ dubbo框架的学习使用
 * 在配置文件中配置应用名、注册中心地址
 * 配置引用的接口和其id
 * 调用时，根据接口和id进行注入
+
+# springboot框架下
+
+* 引包时注意dubbo-spring-boot-starter的版本和groupId，可以参考官网或github
+* yml文件除暴露服务和引用接口外一样配置
+* 启动类上使用@EableDubbo注解
+* 引用的服务@AutoWire改为@Reference，暴露的服务改为dubbo的@Service，加上@Component注入容器
