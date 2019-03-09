@@ -91,3 +91,15 @@ dubbo框架的学习使用
 2.保留dubbo xml配置文件，在启动类中加上@ImportResource(location="classpath:provider.xml")，dubbo的@Service和@Reference就可以不用使用了。   
 3.书写配置类，注册实例ApplicationConfig/RegistryConfig/ProtocolConfig/ServiceConfig等API类，添加@EnableDubbo(scanBasePackages="xxx")。
 
+# zk宕机和dubbo直连
+
+* 方法引用时设置url，指向服务提供方接口
+
+# 负载均衡
+
+* 在一些引用和服务暴露上设置loadbalance属性，在控制台提供者设置其权重
+
+# 服务降级
+
+* 在消费者处选择屏蔽，则直接返回null
+* 在消费者处选择容错，当超时和报错时返回null
