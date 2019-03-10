@@ -103,3 +103,10 @@ dubbo框架的学习使用
 
 * 在消费者处选择屏蔽，则直接返回null
 * 在消费者处选择容错，当超时和报错时返回null
+
+# 整合Hystrix容错
+
+* 导入Hystrix的starter包
+* 启动类开启@EnableHystrix
+* 消费方在调用方法上，提供方在可能出错的方法上，添加@HystrixCommand
+* 消费方在@HystrixCommand中指定失败回调方法
